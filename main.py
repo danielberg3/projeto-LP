@@ -5,17 +5,36 @@ from Clientes.cliente import atualizarCliente
 from Clientes.cliente import deletarCliente
 from Clientes.cliente import somarDividas
 from Clientes.cliente import pagarDivida
-from Produtos.produto import hello2
+from Produtos.produto import cadastrar_produto
+from Produtos.produto import apresentar_produto
+from Produtos.produto import atualizar_produto
 
 
 
+def login():
 
+    print("TELA DE LOGIN".center(45))
+    print("- -" * 15)
+    usuario = input("Digite o nome de usuário: ")
+    senha = input("Digite a senha: ")
 
+    if usuario == "admin" and senha == "123":
+        print("\nLogin bem-sucedido!")
+        return True
+    else:
+        print("\nCredenciais inválidas! Tente novamente!\n")
+        return False
+
+while not login():
+    pass
 
 
 while True:
 
-    print("SISTEMA \n")
+    print("\nSISTEMA \n")
+
+    print("Menu de atendimento".center(50))
+    print(" -- -- " * 7)
 
     print("1  - Cadastrar cliente")
     print("2  - Buscar por cliente")
@@ -49,12 +68,13 @@ while True:
     elif resposta == 8:
         pagarDivida()
     elif resposta == 9:
-        print("")
+        cadastrar_produto()
     elif resposta == 10:
-        print("")
+        atualizar_produto()
     elif resposta == 11:
-        print("")
+        apresentar_produto()
     elif resposta == 12:
-        print("")
+        print("\nPrograma encerrado.")
+        break
     else:
         print("Informe uma opção válida!")
