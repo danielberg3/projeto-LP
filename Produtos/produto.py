@@ -57,18 +57,40 @@ def cadastrar_produto():
     
 def apresentar_produto():
     A_produtos = LerDados()
+    
 
-    if not A_produtos:
-        print("\nNão há produtos cadastrados.")
+    encontrar = input("Deseja encontrar um produto especifico? (sim/não): ")
+   
+    if encontrar == 'sim':
+
+        Nome = input("Informe o nome do produto: ")
+        encontrado = False
+
+        for produto in A_produtos:      
+         if Nome == produto['Nome']:
+            encontrado = True
+            print(f"\nNome: {produto['Nome']}")
+            print(f"Valor: {produto['Valor']}")
+            print(f"Fornecedor: {produto['Fornecedor']}")
+            print(f"Quantidade: {produto['Quantidade']}")
+            print(f"Descrição: {produto['Descrição']}")
+            print(" -" * 20) 
+
+        if encontrado == False:
+             print("\nProduto não cadastrado!")
+            
     else:
-        print("\nProdutos cadastrados:")
-    for produto in A_produtos:
-         print(f"\nNome: {produto['Nome']}")
-         print(f"Valor: {produto['Valor']}")
-         print(f"Fornecedor: {produto['Fornecedor']}")
-         print(f"Quantidade: {produto['Quantidade']}")
-         print(f"Descrição: {produto['Descrição']}")
-         print(" -" * 20)
+        if not A_produtos:
+                print("\nNão há produtos cadastrados.")
+        else:
+                print("\nProdutos cadastrados:")
+        for produto in A_produtos:
+            print(f"\nNome: {produto['Nome']}")
+            print(f"Valor: {produto['Valor']}")
+            print(f"Fornecedor: {produto['Fornecedor']}")
+            print(f"Quantidade: {produto['Quantidade']}")
+            print(f"Descrição: {produto['Descrição']}")
+            print(" -" * 20)
 
 
 
