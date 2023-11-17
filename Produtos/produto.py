@@ -5,9 +5,8 @@ def salvarDados(arquivo, produto):
     A_produtos = []
     try:   
         with open(arquivo, 'r') as file:
-            tamanho = os.path.getsize('arquivoproduto.json')
-            if tamanho:
-                existe = True
+            tamanho = os.path.getsize('produto.json')
+            if tamanho:            
                 A_produtos = json.load(file)
     except FileNotFoundError:
         with open(arquivo, 'w') as file:
@@ -20,8 +19,8 @@ def salvarDados(arquivo, produto):
 
 def LerDados():
     try:   
-        with open('arquivoproduto.json', 'r') as file:           
-            tamanho = os.path.getsize('arquivoproduto.json')
+        with open('produto.json', 'r') as file:           
+            tamanho = os.path.getsize('produto.json')
             if not(tamanho):
                 print("Não há produtos cadastrados!")
                 return 0
@@ -48,12 +47,12 @@ def cadastrar_produto():
         "Valor": Valor,
         "Fornecedor": Fornecedor,
         "Quantidade": Quantidade,
-        "Descrição": Descricao
+        "Descricao": Descricao
     }
     
     print("\nRegistro cadastrado com sucesso!")
 
-    salvarDados('arquivoproduto.json', produto)
+    salvarDados('produto.json', produto)
     
 def apresentar_produto():
     A_produtos = LerDados()
@@ -73,7 +72,7 @@ def apresentar_produto():
             print(f"Valor: {produto['Valor']}")
             print(f"Fornecedor: {produto['Fornecedor']}")
             print(f"Quantidade: {produto['Quantidade']}")
-            print(f"Descrição: {produto['Descrição']}")
+            print(f"Descrição: {produto['Descricao']}")
             print(" -" * 20) 
 
         if encontrado == False:
@@ -89,7 +88,7 @@ def apresentar_produto():
             print(f"Valor: {produto['Valor']}")
             print(f"Fornecedor: {produto['Fornecedor']}")
             print(f"Quantidade: {produto['Quantidade']}")
-            print(f"Descrição: {produto['Descrição']}")
+            print(f"Descrição: {produto['Descricao']}")
             print(" -" * 20)
 
 
@@ -110,14 +109,14 @@ def atualizar_produto():
             produto['Valor'] = input("Informe o novo valor: ")
             produto['Fornecedor'] = input("Informe o novo Fornecedor: ")
             produto['Quantidade'] = input("Informe a nova Quantidade: ")
-            produto['Descrição'] = input("Informe a nova Descrição: ")
+            produto['Descricao'] = input("Informe a nova Descrição: ")
 
 
             resposta  = input("\nAtualizar produto? (sim/não) ")
            
             if resposta == 'sim':
                 A_produtos[indice] = produto
-                with open('arquivoproduto.json', 'w') as file:
+                with open('produto.json', 'w') as file:
                     json.dump(A_produtos, file)
 
                 print("\nproduto Atualizado!")       

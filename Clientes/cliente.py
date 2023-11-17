@@ -5,9 +5,8 @@ def salvarDados(arquivo, cliente):
     clientes = []
     try:   
         with open(arquivo, 'r') as file:
-            tamanho = os.path.getsize('arquivo.json')
+            tamanho = os.path.getsize('cliente.json')
             if tamanho:
-                existe = True
                 clientes = json.load(file)
     except FileNotFoundError:
         with open(arquivo, 'w') as file:
@@ -19,8 +18,8 @@ def salvarDados(arquivo, cliente):
 
 def LerDados():
     try:   
-        with open('arquivo.json', 'r') as file:           
-            tamanho = os.path.getsize('arquivo.json')
+        with open('cliente.json', 'r') as file:           
+            tamanho = os.path.getsize('cliente.json')
             if not(tamanho):
                 print("Não há usuários cadastrados!")
                 return 0
@@ -50,7 +49,7 @@ def cadastrarCliente():
     cliente['endereco'] = input("Informe o Endereço: ")
     cliente['telefone'] = input("Informe o telefone: ")
 
-    salvarDados('arquivo.json', cliente)
+    salvarDados('cliente.json', cliente)
     print("\nCliente cadastrado!")
 
 def buscarCliente():
@@ -121,7 +120,7 @@ def atualizarCliente():
            
             if resposta == 'sim':
                 clientes[indice] = cliente
-                with open('arquivo.json', 'w') as file:
+                with open('cliente.json', 'w') as file:
                     json.dump(clientes, file)
 
                 print("\nCliente Atualizado!")       
@@ -155,7 +154,7 @@ def deletarCliente():
             resposta  = input("Deletar cliente? (sim/não) ")
             if resposta == 'sim':
                 clientes.pop(indice)
-                with open('arquivo.json', 'w') as file:
+                with open('cliente.json', 'w') as file:
                     json.dump(clientes, file)
 
                 print("\nCliente Excluído!")
@@ -201,7 +200,7 @@ def pagarDivida():
                 cliente['dividas'] = 0
                 cliente['compras'] = ''
                 clientes[indice] = cliente
-                with open('arquivo.json', 'w') as file:
+                with open('cliente.json', 'w') as file:
                     json.dump(clientes, file)
 
                 print("\nDívida apagada!")
