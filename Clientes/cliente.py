@@ -209,3 +209,29 @@ def pagarDivida():
     if not(encontrado):
         print("Cliente não encontrado!")
         return
+        
+
+def registrar_compras():
+    
+    clientes = LerDados()
+
+    cliente_CPF = input("Informe o CPF do cliente: ")
+
+    for indice, cliente in enumerate(clientes):
+        if cliente_CPF == cliente['CPF']:
+            produto_comprado = input("Informe o produto comprado: ")
+            cliente['compras'] += (produto_comprado + " / " )
+
+    resposta = input("\nDeseja confirmar? (sim/não): ")
+
+    if resposta == 'sim':
+        clientes[indice] = cliente
+        with open('cliente.json', 'w') as file:
+             json.dump(clientes, file, indent=2)
+    
+        print("\nCompra registrada com sucesso!")
+        return
+
+    if not(clientes):
+         print("\ncliente não encontrado!")
+    return  
