@@ -5,6 +5,7 @@ from Clientes.cliente import atualizarCliente
 from Clientes.cliente import deletarCliente
 from Clientes.cliente import somarDividas
 from Clientes.cliente import pagarDivida
+from Clientes.cliente import registrar_compras
 from Produtos.produto import cadastrar_produto
 from Produtos.produto import apresentar_produto
 from Produtos.produto import atualizar_produto
@@ -64,7 +65,7 @@ while True:
     elif resposta == 6:
         somarDividas()
     elif resposta == 7:
-        print("")
+        registrar_compras()
     elif resposta == 8:
         pagarDivida()
     elif resposta == 9:
