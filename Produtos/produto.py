@@ -31,11 +31,11 @@ def ler_dados():
 
 def cadastrar_produto():
 
-    Nome = input("Nome: ")
-    Valor  = int(input("Valor do produto: "))
-    Fornecedor = input("Fornecedor: ")
+    Nome = input("Nome: ").title()
+    Valor  = float(input("Valor do produto: "))
+    Fornecedor = input("Fornecedor: ").title()
     Quantidade = int(input("Informe a quantidade de unidades inical: "))
-    Descricao = input("Informe a descrição do produto: ")
+    Descricao = input("Informe a descrição do produto: ").title()
     
     produto = {
         'Nome':Nome,
@@ -57,11 +57,11 @@ def apresentar_produto():
     if not(Agenda_produtos):
         return
 
-    encontrar = input("Deseja encontrar um produto especifico? (sim/não): ")
+    encontrar = input("Deseja encontrar um produto especifico? (sim/não): ").lower()
    
     if encontrar == 'sim':
 
-        Nome = input("Informe o nome do produto: ")
+        Nome = input("Informe o nome do produto: ").title()
         encontrado = False
 
         for produto in Agenda_produtos:      
@@ -99,16 +99,16 @@ def atualizar_produto():
     if not Agenda_produtos:
         return
 
-    Nome = input("Informe o nome do produto: ")
+    Nome = input("Informe o nome do produto: ").title()
 
     for produto in Agenda_produtos:
         if Nome == produto['Nome']:
-            produto['Valor'] = int(input("Informe o novo valor: "))
-            produto['Fornecedor'] = input("Informe o novo Fornecedor: ")
+            produto['Valor'] = float(input("Informe o novo valor: "))
+            produto['Fornecedor'] = input("Informe o novo Fornecedor: ").title()
             produto['Quantidade'] = int(input("Informe a nova Quantidade: "))
-            produto['Descricao'] = input("Informe a nova Descrição: ")
+            produto['Descricao'] = input("Informe a nova Descrição: ").lower()
 
-            resposta = input("\nAtualizar produto? (sim/não): ")
+            resposta = input("\nAtualizar produto? (sim/não): ").lower()
 
             if resposta.lower() == 'sim':
                 with open('produto.json', 'w') as file:

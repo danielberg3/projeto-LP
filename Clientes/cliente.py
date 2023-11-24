@@ -46,9 +46,9 @@ def cadastrarCliente():
     }
 
 
-    cliente['nome'] = input("Informe o nome: ")
+    cliente['nome'] = input("Informe o nome: ").title()
     cliente['CPF'] = input("Informe o CPF: ")
-    cliente['endereco'] = input("Informe o Endereço: ")
+    cliente['endereco'] = input("Informe o Endereço: ").title()
     cliente['telefone'] = input("Informe o telefone: ")
 
     salvarDados('cliente.json', cliente)
@@ -73,7 +73,7 @@ def buscarCliente():
             print(f"Telefone: {cliente['telefone']}")
             print(f"Dívidas: {cliente['dividas']} \n")
             
-            resposta  = input("Ver dados de compra? (sim/não) ")
+            resposta  = input("Ver dados de compra? (sim/não) ").lower()
             if resposta == 'sim':
                 if cliente['compras'] == []:
                     print("Não há compras registradas!")
@@ -115,12 +115,12 @@ def atualizarCliente():
     for indice, cliente in enumerate(clientes):
         if CPF == cliente['CPF']:
             encontrado = True
-            cliente['nome'] = input("Informe o novo nome: ")
+            cliente['nome'] = input("Informe o novo nome: ").title()
             cliente['CPF'] = input("Informe o novo CPF: ")
-            cliente['endereco'] = input("Informe o novo endereço: ")
+            cliente['endereco'] = input("Informe o novo endereço: ").title()
             cliente['telefone'] = input("Informe o novo telefone: \n")
 
-            resposta  = input("Atualizar cliente? (sim/não) ")
+            resposta  = input("Atualizar cliente? (sim/não) ").lower()
            
             if resposta == 'sim':
                 clientes[indice] = cliente
@@ -155,7 +155,7 @@ def deletarCliente():
             print(f"Telefone: {cliente['telefone']}")
             print(f"Dívidas: {cliente['dividas']} \n")
 
-            resposta  = input("Deletar cliente? (sim/não) ")
+            resposta  = input("Deletar cliente? (sim/não) ").lower()
             if resposta == 'sim':
                 clientes.pop(indice)
                 with open('cliente.json', 'w') as file:
@@ -199,10 +199,14 @@ def pagarDivida():
             print(f"Telefone: {cliente['telefone']}")
             print(f"Dívidas: {cliente['dividas']} \n")
 
-            resposta  = input("Apagar dívidas do cliente? (sim/não) ")
+            if cliente['dividas'] == 0:
+                print("O cliente não possui dívidas!")
+                return
+
+            resposta  = input("Apagar dívidas do cliente? (sim/não) ").lower()
             if resposta == 'sim':
                 cliente['dividas'] = 0
-                cliente['compras'] = ''
+                cliente['compras'] = []
                 clientes[indice] = cliente
                 with open('cliente.json', 'w') as file:
                     json.dump(clientes, file)
@@ -233,8 +237,10 @@ def registrar_compras():
 
     for indice_cliente, cliente in enumerate(clientes):
         if cliente_CPF == cliente['CPF']:      
+            
             encontrado_cliente = True      
-            produto_comprado = input("Informe o produto comprado: ")
+            produto_comprado = input("Informe o produto comprado: ").title()
+
             for indice_produto, produto in enumerate(produtos):
                 if produto_comprado == produto['Nome']:
                     encontrado_produto = True
@@ -258,7 +264,7 @@ def registrar_compras():
          return  
 
     if(encontrado_produto):
-        resposta = input("\nDeseja confirmar? (sim/não): ")
+        resposta = input("\nDeseja confirmar? (sim/não): ").lower()
         if resposta == 'sim':
             
             with open('cliente.json', 'w') as file:

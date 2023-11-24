@@ -16,7 +16,7 @@ def login():
 
     print("TELA DE LOGIN".center(45))
     print("- -" * 15)
-    usuario = input("Digite o nome de usuário: ")
+    usuario = input("Digite o nome de usuário: ").lower()
     senha = input("Digite a senha: ")
 
     if usuario == "admin" and senha == "123":
