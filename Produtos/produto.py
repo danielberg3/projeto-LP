@@ -32,17 +32,17 @@ def ler_dados():
 def cadastrar_produto():
 
     Nome = input("Nome: ")
-    Valor  = input("Valor do produto: ")
+    Valor  = int(input("Valor do produto: "))
     Fornecedor = input("Fornecedor: ")
-    Quantidade = input("Informe a quantidade de unidades inical: ")
+    Quantidade = int(input("Informe a quantidade de unidades inical: "))
     Descricao = input("Informe a descrição do produto: ")
     
     produto = {
-        "Nome":Nome,
-        "Valor": Valor,
-        "Fornecedor": Fornecedor,
-        "Quantidade": Quantidade,
-        "Descrição": Descricao
+        'Nome':Nome,
+        'Valor': Valor,
+        'Fornecedor': Fornecedor,
+        'Quantidade': Quantidade,
+        'Descricao': Descricao
     }
     
     
@@ -71,7 +71,7 @@ def apresentar_produto():
             print(f"Valor: {produto['Valor']}")
             print(f"Fornecedor: {produto['Fornecedor']}")
             print(f"Quantidade: {produto['Quantidade']}")
-            print(f"Descrição: {produto['Descrição']}")
+            print(f"Descrição: {produto['Descricao']}")
             print(" -" * 20) 
 
         if encontrado == False:
@@ -87,7 +87,7 @@ def apresentar_produto():
             print(f"Valor: {produto['Valor']}")
             print(f"Fornecedor: {produto['Fornecedor']}")
             print(f"Quantidade: {produto['Quantidade']}")
-            print(f"Descrição: {produto['Descrição']}")
+            print(f"Descrição: {produto['Descricao']}")
             print(" -" * 20)
 
 
@@ -103,10 +103,10 @@ def atualizar_produto():
 
     for produto in Agenda_produtos:
         if Nome == produto['Nome']:
-            produto['Valor'] = input("Informe o novo valor: ")
+            produto['Valor'] = int(input("Informe o novo valor: "))
             produto['Fornecedor'] = input("Informe o novo Fornecedor: ")
-            produto['Quantidade'] = input("Informe a nova Quantidade: ")
-            produto['Descrição'] = input("Informe a nova Descrição: ")
+            produto['Quantidade'] = int(input("Informe a nova Quantidade: "))
+            produto['Descricao'] = input("Informe a nova Descrição: ")
 
             resposta = input("\nAtualizar produto? (sim/não): ")
 

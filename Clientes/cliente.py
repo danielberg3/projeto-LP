@@ -1,6 +1,8 @@
 import json
 import os
 
+from Produtos.produto import ler_dados
+
 def salvarDados(arquivo, cliente):
     clientes = []
     try:   
@@ -39,7 +41,7 @@ def cadastrarCliente():
         'CPF': '',
         'endereco': '',
         'telefone': '',
-        'compras': '',
+        'compras': [],
         'dividas': 0,
     }
 
@@ -73,10 +75,12 @@ def buscarCliente():
             
             resposta  = input("Ver dados de compra? (sim/não) ")
             if resposta == 'sim':
-                if cliente['compras'] == '':
+                if cliente['compras'] == []:
                     print("Não há compras registradas!")
                 else:
-                    print(f"Dados de compra: {cliente['compras']}")
+                    print("\n")
+                    for compra in cliente['compras']:
+                        print(compra)
     
     if not(encontrado):
         print("Cliente não encontrado!")
@@ -214,24 +218,56 @@ def pagarDivida():
 def registrar_compras():
     
     clientes = LerDados()
+    if not(clientes):
+        return
+    
+    produtos = ler_dados()
+
+    if not(produtos):
+        return
+
+    encontrado_cliente = False
+    encontrado_produto = False
 
     cliente_CPF = input("Informe o CPF do cliente: ")
 
-    for indice, cliente in enumerate(clientes):
-        if cliente_CPF == cliente['CPF']:
+    for indice_cliente, cliente in enumerate(clientes):
+        if cliente_CPF == cliente['CPF']:      
+            encontrado_cliente = True      
             produto_comprado = input("Informe o produto comprado: ")
-            cliente['compras'] += (produto_comprado + " / " )
+            for indice_produto, produto in enumerate(produtos):
+                if produto_comprado == produto['Nome']:
+                    encontrado_produto = True
+                    quantidade = int(input("Informe a quantidade de produtos a serem comprados: "))
+                    if quantidade > produto['Quantidade']:
+                        print("\nA quantidade informada é maior que o estoque de produtos!")
+                        print(f"Quantidade em estoque: {produto['Quantidade']}")
+                        return
+                    else:
+                        novaCompra = "Quantidade: {}, Produto: {}".format(quantidade, produto_comprado)
+                        cliente['compras'].append(novaCompra)
+                        cliente['dividas'] = cliente['dividas'] + (quantidade * produto['Valor'])
+                        produto['Quantidade'] = produto['Quantidade'] - quantidade
+                        
+                        clientes[indice_cliente] = cliente
+                        produtos[indice_produto] = produto
+                    
 
-    resposta = input("\nDeseja confirmar? (sim/não): ")
-
-    if resposta == 'sim':
-        clientes[indice] = cliente
-        with open('cliente.json', 'w') as file:
-             json.dump(clientes, file, indent=2)
-    
-        print("\nCompra registrada com sucesso!")
-        return
-
-    if not(clientes):
+    if  not(encontrado_cliente):
          print("\ncliente não encontrado!")
-    return  
+         return  
+
+    if(encontrado_produto):
+        resposta = input("\nDeseja confirmar? (sim/não): ")
+        if resposta == 'sim':
+            
+            with open('cliente.json', 'w') as file:
+                json.dump(clientes, file)
+
+            with open('produto.json', 'w') as file:
+                json.dump(produtos, file)
+
+            print("\nCompra registrada com sucesso!")
+            return
+    else:
+        print("O produto não foi encontrado no estoque!")
