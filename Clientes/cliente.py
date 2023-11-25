@@ -48,6 +48,11 @@ def cadastrarCliente():
 
     cliente['nome'] = input("Informe o nome: ").title()
     cliente['CPF'] = input("Informe o CPF: ")
+
+    if len(cliente['CPF']) != 11:
+        print("\nCPF inválido!")
+        return
+    
     cliente['endereco'] = input("Informe o Endereço: ").title()
     cliente['telefone'] = input("Informe o telefone: ")
 
